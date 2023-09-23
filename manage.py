@@ -7,7 +7,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'unlimitedstudio.settings')
+    
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'unlimitedstudio.settings.py')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
