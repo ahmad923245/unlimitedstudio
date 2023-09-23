@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import pymysql
+import django_heroku
+import dj_database_url
 pymysql.install_as_MySQLdb()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +27,7 @@ SECRET_KEY = 'v0h!u1#176+u4sbdfolkqe33gcn9ht&t66*@-*jma#-_^p#g9j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -216,3 +218,5 @@ UPDATE_SUCCESS_MESSAGE = 'Record updated successfully'
 PERMISSION_DENIED_MESSAGE = 'Permission Denied'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+django_heroku.settings(locals())
