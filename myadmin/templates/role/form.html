@@ -1,0 +1,44 @@
+{% csrf_token %}
+<div class="card-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="name">Title</label>
+          <input type="text" value="{% if form.title.value != None %}{{ form.title.value }}{% endif %}" name="title" class="form-control" id="title" placeholder="Enter Title">
+          {{ form.title.errors }}
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <strong>Permission:</strong>
+          {{ form.permission.errors }}
+          <br/>
+          <table class="table table-bordered table-hover datatable">
+            <thead>
+              <tr>
+                <td><b>Module</b></td>
+                <td><b>Permission</b></td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for module in modules %}
+                <tr>
+                  <td><label>{{ module.display_name }}</label></td>
+                  <td>
+                  {%for method in module.method.all %}
+                    <input name="permission" type="checkbox" id="method{{method.id}}" value="{{method.id}}"  {% if method.id|slugify in form.permission.value or method.id in rolePermissions %} checked {% endif %}> <label for="method{{method.id}}" style="margin-right:15px;">{{method.display_name}}</label>
+                  {% endfor %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+    </div>
+    </div>
+  </div>
+  <!-- /.card-body -->
+<div class="card-footer">
+  <a href="{% url page_url %}" class="btn btn-secondary">Cancel</a>
+  <button type="submit" class="btn btn-primary float-right">Submit</button>
+</div>

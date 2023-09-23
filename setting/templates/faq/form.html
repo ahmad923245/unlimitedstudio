@@ -1,0 +1,50 @@
+{% csrf_token %}
+{% load widget_tweaks %}
+
+<div class="card-body">
+    <div class="row">
+        {% for field in forms %}
+        <div class="col-md-12">
+        <div class="form-group">
+          <label for="{{ field.auto_id }}">{{ field.label }}</label>
+          {{ field | add_class:"form-control"}}
+<!--          <input type="text" value="{% if form.it_title.value != None %}{{ form.it_title.value }}{% endif %}" name="it_title" class="form-control" id="it_title" placeholder="Enter italian title">-->
+          {% if field.help_text %}
+            <small>{{ field.help_text|safe }}</small>
+          {% endif %}
+            {% for error in field.errors %}
+            <small id="{{ field.auto_id }}" class="text-danger">{{ error }}</small>
+          {% endfor %}
+        </div>
+      </div>
+{% endfor %}
+
+
+<!--      <div class="col-md-12">-->
+<!--        <div class="form-group">-->
+<!--          <label for="it_title">Italian Title</label>-->
+<!--          <input type="text" value="{% if form.it_title.value != None %}{{ form.it_title.value }}{% endif %}" name="it_title" class="form-control" id="it_title" placeholder="Enter italian title">-->
+<!--          {{ form.it_title.errors }}-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col-md-12">-->
+<!--        <div class="form-group">-->
+<!--          <label for="en_description">English Description </label>-->
+<!--          <textarea name="en_description" value="" class="form-control" id="en_description" placeholder="English Description">{% if form.en_description.value != None %}{{ form.en_description.value }}{% endif %}</textarea>-->
+<!--          {{ form.en_description.errors }}-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col-md-12">-->
+<!--        <div class="form-group">-->
+<!--          <label for="it_description">Italian Description </label>-->
+<!--          <textarea name="it_description" value="" class="form-control" id="it_description" placeholder="Italian Description">{% if form.it_description.value != None %}{{ form.it_description.value }}{% endif %}</textarea>-->
+<!--          {{ form.it_description.errors }}-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+  </div>
+  <!-- /.card-body -->
+<div class="card-footer">
+  <a href="{% url page_url %}" class="btn btn-secondary">Cancel</a>
+  <button type="submit" class="btn btn-primary float-right">Submit</button>
+</div>

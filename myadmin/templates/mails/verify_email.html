@@ -1,0 +1,53 @@
+{% autoescape off %}
+<table class="wrapper" style="font-family: Avenir, Helvetica, sans-serif; background-color: #f5f8fa; margin: 0; padding: 0; width: 100%;" width="100%" cellspacing="0" cellpadding="0">
+    <tbody>
+        <tr>
+            <td style="font-family: Avenir, Helvetica, sans-serif;" align="center">
+                <table class="content" style="font-family: Avenir, Helvetica, sans-serif; margin: 0; padding: 0; width: 100%;" width="100%" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td class="header" style="font-family: Avenir, Helvetica, sans-serif; padding: 25px 0; text-align: center; background:#700025; font-size: 20px; color:#fff; font-weight: bold;">{{ site_name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="body" style="font-family: Avenir, Helvetica, sans-serif; background-color: #ffffff; border-bottom: 1px solid #EDEFF2; border-top: 1px solid #EDEFF2; margin: 0; padding: 0; width: 100%;" width="100%">
+                                <table class="inner-body" style="font-family: Avenir, Helvetica, sans-serif; background-color: #ffffff; margin: 0 auto; padding: 0; width: 570px;" width="570" cellspacing="0" cellpadding="0" align="center">
+                                    <tbody>
+                                        <tr>
+                                            <td class="content-cell" style="font-family: Avenir, Helvetica, sans-serif; padding: 35px;">
+                                                <h1 style="font-family: Avenir, Helvetica, sans-serif; color: #2f3133; font-size: 19px; font-weight: bold; margin-top: 0; text-align: left;">Dear {{ user.first_name }},</h1>
+                                                <p style="font-family: Avenir, Helvetica, sans-serif; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">Thanks for getting started with us</p>
+                                                <p style="font-family: Avenir, Helvetica, sans-serif; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">We need a little more information to complete your registration, including a confirmation of your email address.</p>
+                                                <p style="font-family: Avenir, Helvetica, sans-serif; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">Click below to confirm your email address:</p>
+                                                <a href="{{ protocol }}://{{ domain }}{% url 'verify_email' uidb64=uid %}" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 5px; background: #700025; display: inline-block;">Confirm Email</a>
+                                                <p></p>
+                                                <p style="font-family: Avenir, Helvetica, sans-serif; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">If that doesn't work, copy and paste the following link in your browser:</p>
+                                                <p style="font-family: Avenir, Helvetica, sans-serif; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;"><a href="{{ protocol }}://{{ domain }}{% url 'verify_email' uidb64=uid %}">{{ protocol }}://{{ domain }}{% url 'verify_email' uidb64=uid %}</a></p>
+
+                                                <p style="font-family: Avenir, Helvetica, sans-serif; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">&nbsp;</p>
+                                                <p style="font-family: Avenir, Helvetica, sans-serif; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">Regards, <br />Team {{site_name}}</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: Avenir, Helvetica, sans-serif;">
+                                <table class="footer" style="font-family: Avenir, Helvetica, sans-serif; margin: 0 auto; padding: 0; text-align: center; width: 570px;" width="570" cellspacing="0" cellpadding="0" align="center">
+                                    <tbody>
+                                        <tr>
+                                            <td class="content-cell" style="font-family: Avenir, Helvetica, sans-serif; padding: 35px;" align="center">
+                                                <p style="font-family: Avenir, Helvetica, sans-serif; line-height: 1.5em; margin-top: 0; color: #aeaeae; font-size: 12px; text-align: center;">&copy; {% now 'Y' %} {{APP_NAME}}. All rights reserved.</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+{% endautoescape %}

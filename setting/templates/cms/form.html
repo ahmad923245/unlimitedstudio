@@ -1,0 +1,29 @@
+{% csrf_token %}
+{% load widget_tweaks %}
+<div class="card-body">
+    <div class="row">
+
+{% for field in forms %}
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="{{ field.auto_id }}">{{ field.label }}</label>
+
+          {{ field | add_class:"form-control"}}
+<!--          <input type="text" value="{% if form.it_title.value != None %}{{ form.it_title.value }}{% endif %}" name="it_title" class="form-control" id="it_title" placeholder="Enter italian title">-->
+          {% if field.help_text %}
+            <small>{{ field.help_text|safe }}</small>
+          {% endif %}
+            {% for error in field.errors %}
+            <small id="{{ field.auto_id }}" class="text-danger">{{ error }}</small>
+          {% endfor %}
+
+        </div>
+      </div>
+{% endfor %}
+    </div>
+  </div>
+  <!-- /.card-body -->
+<div class="card-footer">
+  <a href="{% url page_url %}" class="btn btn-secondary">Cancel</a>
+  <button type="submit" class="btn btn-primary float-right">Submit</button>
+</div>

@@ -1,0 +1,19 @@
+{% csrf_token %}
+{% load widget_tweaks %}
+{% load static %}
+<div class="card-body">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="admin_percentes">Admin Commision Percentage</label>
+          <input type="text" value="{% if forms.admin_percentes.value != None %}{{ forms.admin_percentes.value }}{% endif %}" name="admin_percentes" class="form-control" id="admin_percentes" placeholder="">
+          {{ forms.admin_percentes.errors }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.card-body -->
+<div class="card-footer">
+  <a href="{% url page_url %}" class="btn btn-secondary">Cancel</a>
+  <button type="submit" class="btn btn-primary float-right">Submit</button>
+</div>

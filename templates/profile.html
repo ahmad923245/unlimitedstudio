@@ -1,0 +1,105 @@
+{% extends 'layouts/admin.html' %}
+{% load static %}
+{% block 'maincontent' %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Profile</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+              <li class="breadcrumb-item active">Profile</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-primary">
+              <form id="quickForm" method="POST" action="{% url 'profile' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="title">First Name</label>
+                        <input type="text" value="{% if form.first_name.value != None %}{{ form.first_name.value }}{% endif %}" name="first_name" class="form-control" id="first_name" placeholder="Enter First Name">
+                        {{ form.first_name.errors }}
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="title">Last Name</label>
+                        <input type="text" value="{% if form.last_name.value != None %}{{ form.last_name.value }}{% endif %}" name="last_name" class="form-control" id="last_name" placeholder="Enter Last Name">
+                        {{ form.last_name.errors }}
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="title">Image</label>
+                        <div class="UploadPhoto uploads_outer">
+                          <div class="profile-box">
+                          {% if form.profile_image.value == NULL or form.profile_image.value == '' %}
+                            <img class="profile-pic" src="{% static 'admin/img/avatar.png'%}">
+                          {% else %}
+                            <img class="profile-pic" src="{{ MEDIA_BASE_PATH }}{{ form.profile_image.value }}">
+                          {% endif %}
+                          </div>
+                          <div class="p-image">
+                           <button type="button" value="login" class="btn  upload-button">Upload</button>
+                           <input name="image" class="file-upload" type="file" accept="image/*">
+                          </div>
+                        </div>
+                        {{ form.image.errors }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+              <div class="card-footer">
+                <a href="{% url page_url %}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary float-right">Submit</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock %}
+{% block 'script' %}
+<!-- ChartJS -->
+<script>
+  var readURL = function(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $(input).closest('.uploads_outer').find('.profile-pic').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  $(document).ready(function() {
+    $(".upload-button").on('click', function() {
+      $(this).closest('div').find(".file-upload").click();
+    });
+    $(".file-upload").on('change', function(){
+      readURL(this);
+    });
+  });
+</script>
+{% endblock %}

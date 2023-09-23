@@ -1,0 +1,119 @@
+{% extends 'layouts/admin.html' %}
+{% load static %}
+{% block 'maincontent' %}
+{% load common_tags %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+             <h1>{{page_name}}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+              <li class="breadcrumb-item active">{{page_name}}</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Sr no</th>
+                    <th>Musician</th>
+                    <th>Studio</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th class="action">Action</th>
+                  </tr>
+                  </thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Musician</th>
+                    <th>Studio</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                  <tfoot>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+{% endblock %}
+{% block 'script' %}
+<script>
+  $(function () {
+    Gurl="{% url 'admin_get_user_list-list' %}?format=datatables"
+   tables = $('#example1').DataTable({
+        "bProcessing": true,
+        "serverSide": true,
+        "pageLength": 10,
+        "order": [[0, "desc"]],
+
+        "ajax": {
+            url: "{% url 'raise_dispute_list' %}",
+            //method:"POST",
+            error: function () {
+                alert("something went wrong");
+            }
+        },
+
+        "columns": [
+                {
+                'data': null, width: '10%', class: 'text-left',
+                 "render": function (data, type, row, meta) {
+                  return meta.row + meta.settings._iDisplayStart + 1;
+                },
+                "bSortable": false,"searchable": false
+              },
+
+              {"data": "musician"},
+              {"data": "studio"},
+              {"data": "status"},
+              {"data": "created_at"},
+              {"data": "actions" ,"searchable": false,"bSortable":false }
+        ],
+
+        language: {
+                searchPlaceholder: "Search"
+        },
+        "aoColumnDefs": [
+            {"bSortable": false, "aTargets": ['action']},
+
+        ],
+        "fnDrawCallback": function() {
+
+        },
+    });
+
+    tables.state.clear()
+  });
+</script>
+{% endblock %}

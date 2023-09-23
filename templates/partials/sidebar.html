@@ -1,0 +1,271 @@
+{% load static %}
+{% load common_tags %}
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{% url 'dashboard' %}" class="brand-link">
+      <img src="{% static 'admin/img/AdminLTELogo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">{{APP_NAME}}</span>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          {% if request.user.profile_image == NULL or request.user.profile_image == '' %}
+            <img class="img-circle elevation-2" src="{% static 'admin/img/avatar.png'%}">
+          {% else %}
+            <img class="img-circle elevation-2" src="{{ MEDIA_BASE_PATH }}{{ request.user.profile_image }}">
+          {% endif %}
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">{{request.user.first_name}} {{request.user.last_name}}</a>
+        </div>
+      </div>
+
+      <!-- SidebarSearch Form -->
+      <!--<div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>-->
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+              <a href="{% url 'dashboard'%}" class="nav-link {% if page_url == 'dashboard' %} active {% endif %}">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>Dashboard </p>
+              </a>
+          </li>
+          {% showMenu request 'user-list'  as showUserMenu %}
+          {% showMenu request 'role-list'  as showRoleMenu %}
+          {% if showUserMenu == True or showRoleMenu == True %}
+          <li class="nav-item {% if page_url == 'user' or page_url == 'role' %} menu-open {% endif %}">
+<!--            <a href="#" class="nav-link {% if page_url == 'user' or page_url == 'role' %} active {% endif %}">-->
+<!--              <i class="nav-icon fas fa-users"></i>-->
+<!--              <p>-->
+<!--                Users-->
+<!--                <i class="right fas fa-angle-left"></i>-->
+<!--              </p>-->
+<!--            </a>-->
+<!--            <ul class="nav nav-treeview">-->
+              {% if showUserMenu == True %}
+              <li class="nav-item">
+                <a href="{% url 'user' %}?type=user" class="nav-link {% if page_url == 'user' and 'user' == request.GET.type %} active {% endif %} ">
+              <i class="nav-icon fas fa-users"></i>
+                  <p>Users</p>
+                </a>
+              </li>
+<!--              <li class="nav-item">-->
+<!--                <a href="{% url 'user' %}?type=subadmin" class="nav-link {% if page_url == 'user' and 'subadmin' == request.GET.type %} active {% endif %} ">-->
+<!--                  <i class="far fa-circle nav-icon"></i>-->
+<!--                  <p>Subadmins</p>-->
+<!--                </a>-->
+<!--              </li>-->
+              {% endif %}
+<!--              {% if showRoleMenu == True %}-->
+<!--              <li class="nav-item">-->
+<!--                <a href="{% url 'role' %}" class="nav-link {% if page_url == 'role' %} active {% endif %}">-->
+<!--                  <i class="far fa-circle nav-icon"></i>-->
+<!--                  <p>Roles</p>-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              {% endif %}-->
+<!--            </ul>-->
+          </li>
+          {% endif %}
+
+          {% showMenu request 'cms-list'  as showCmsMenu %}
+          {% showMenu request 'faq-list'  as showFaqMenu %}
+          {% showMenu request 'static_pages-list'  as show_static_pages_Menu %}
+          {% showMenu request 'admin_charges-list'  as show_admin_charges_Menu %}
+          {% if showCmsMenu == True or showFaqMenu == True or show_static_pages_Menu == True or show_admin_charges_Menu == True %}
+          <li class="nav-item {% if page_url == 'cms' or page_url == 'faq' or page_url == 'static_pages' or page_url == 'admin_charges' %} menu-open {% endif %}">
+            <a href="#" class="nav-link {% if page_url == 'cms' or page_url == 'faq' or page_url == 'static_pages' or page_url == 'admin_charges' %} active {% endif %}">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Settings
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              {% if showFaqMenu == True %}
+              <li class="nav-item">
+                <a href="{% url 'faq' %}" class="nav-link {% if page_url == 'faq' %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>FAQ</p>
+                </a>
+              </li>
+              {% endif %}
+              {% if show_static_pages_Menu == True %}
+              <li class="nav-item">
+                <a href="{% url 'static_pages' %}" class="nav-link {% if page_url == 'static_pages' %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>CMS</p>
+                </a>
+              </li>
+              {% endif %}
+                {% if show_admin_charges_Menu == True %}
+              <li class="nav-item">
+                <a href="{% url 'admin_charges' %}" class="nav-link {% if page_url == 'admin_charges' %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admin Charges</p>
+                </a>
+              </li>
+              {% endif %}
+
+            </ul>
+          </li>
+          {% endif %}
+
+          {% showMenu request 'studio-list'  as showStudioMenu %}
+          {% showMenu request 'generic-list'  as showGenericMenu %}
+          {% showMenu request 'category-list'  as showCategoryMenu %}
+          {% showMenu request 'sub_category-list'  as showSubCategoryMenu %}
+          {% showMenu request 'rating-list'  as showRatingMenu %}
+          {% if showStudioMenu == True or showGenericMenu == True or showSubCategoryMenu == True or showCategoryMenu == True or showRatingMenu == True %}
+          <li class="nav-item {% if page_url == 'studio' or page_url == 'generic' or page_url == 'sub_category' or page_url == 'category' or page_url == 'rating' %} menu-open {% endif %}">
+            <a href="#" class="nav-link {% if page_url == 'studio' or page_url == 'generic' or page_url == 'sub_category' or  page_url == 'category' or page_url == 'rating' %} active {% endif %}">
+          <i class="nav-icon fas fa-music"></i>
+              <p>
+                Service Provider
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              {% if showStudioMenu == True %}
+              <li class="nav-item">
+                <a href="{% url 'studio' %}"
+                   class="nav-link {% if page_url == 'studio' %} active {% endif %} ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Studios</p>
+                </a>
+              </li>
+              {% endif %}
+              {% if showGenericMenu == True %}
+              <li class="nav-item">
+                <a href="{% url 'generic' %}"
+                   class="nav-link {% if page_url == 'generic' %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Generic</p>
+                </a>
+              </li>
+              {% endif %}
+               {% if showCategoryMenu == True %}
+              <li class="nav-item">
+                <a href="{% url 'category' %}"
+                  class="nav-link {% if page_url == 'category' %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category</p>
+                </a>
+              </li>
+              {% endif %}
+              {% if showSubCategoryMenu == True %}
+              <li class="nav-item">
+                <a href="{% url 'sub_category' %}"
+                   class="nav-link {% if page_url == 'sub_category' %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>SubCategory</p>
+                </a>
+              </li>
+                {% endif %}
+                {% if showRatingMenu == True %}
+              <li class="nav-item">
+                <a href="{% url 'rating' %}"
+                   class="nav-link {% if page_url == 'rating' %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Rating</p>
+                </a>
+              </li>
+              {% endif %}
+              </ul>
+              {% endif %}
+
+
+              <!-- <li class="nav-item">
+                <a href="{% url 'booking' %}"
+                   class="nav-link {% if page_url == 'booking' %} active {% endif %}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Booking</p>
+                </a>
+              </li> -->
+
+
+          {% showMenu request 'booking-list'  as showBookingMenu %}
+          {% showMenu request 'booking_payment_list'  as showBookingsPaymentMenu %}
+          {% if showBookingMenu == True  or showBookingsPaymentMenu == True  %}
+          <li class="nav-item {% if page_url == 'booking'  %} menu-open {% endif %}">
+            <a href="#" class="nav-link {% if page_url == 'booking' %} active {% endif %}">
+          <i class="nav-icon fas fa-check-square"></i>
+              <p>
+                Booking
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              {% if showBookingMenu == True %}
+              <li class="nav-item">
+                <a href="{% url 'booking' %}"
+                   class="nav-link {% if page_url == 'booking' %} active {% endif %} ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bookings</p>
+                </a>
+              </li>
+              
+              {% endif %}
+              {% if showBookingsPaymentMenu == True %}
+              <li class="nav-item">
+                <a href="{% url 'booking_payment' %}"
+                   class="nav-link {% if page_url == 'booking_payment' %} active {% endif %} ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Booking Payment</p>
+                </a>
+              </li>
+              
+              {% endif %}
+            </ul>
+          </li>
+          {% endif %}
+          {% showMenu request 'raise_dispute-list'  as show_raise_dispute_Menu %}
+           {% if show_raise_dispute_Menu == True %}
+              <li class="nav-item">
+                <a href="{% url 'raise_dispute'%}" class="nav-link {% if page_url == 'raise_dispute' %} active {% endif %}">
+                  <i class="nav-icon fas fa-comment-alt"></i>
+                  <p>Raise Dispute</p>
+                </a>
+              </li>
+          {% endif %}
+           {% showMenu request 'notification-list'  as shownotificationMenu %}
+           {% if shownotificationMenu == True %}
+              <li class="nav-item">
+                <a href="{% url 'notification'%}" class="nav-link {% if page_url == 'notification' %} active {% endif %}">
+                  <i class="nav-icon fa fa-bell"></i>
+                  <p>Notifications</p>
+                </a>
+              </li>
+          {% endif %}
+            {% showMenu request 'studioblock-list'  as showstudioblockMenu %}
+           {% if showstudioblockMenu == True %}
+              <li class="nav-item">
+                <a href="{% url 'studioblock'%}" class="nav-link {% if page_url == 'studioblock' %} active {% endif %}">
+                  <i class="nav-icon fas fa-comment-alt"></i>
+                  <p>Reported Studio</p>
+                </a>
+              </li>
+          {% endif %}
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

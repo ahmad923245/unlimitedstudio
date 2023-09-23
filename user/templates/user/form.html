@@ -1,0 +1,55 @@
+{% csrf_token %}
+<div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="first_name">Username</label>
+          <input type="text" value="{% if form.first_name.value != None %}{{ form.first_name.value }}{% endif %}" name="first_name" class="form-control" id="first_name" placeholder="Enter Username">
+          {{ form.first_name.errors }}
+        </div>
+      </div>
+<!--      <div class="col-md-6">-->
+<!--        <div class="form-group">-->
+<!--          <label for="last_name">Last Name</label>-->
+<!--          <input type="text" value="{% if form.last_name.value != None %}{{ form.last_name.value }}{% endif %}" name="last_name" class="form-control" id="last_name" placeholder="Enter Last Name">-->
+<!--          {{ form.last_name.errors }}-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" value="{% if form.email.value != None %}{{ form.email.value }}{% endif %}" name="email" class="form-control" id="email" placeholder="Enter Email">
+          {{ form.email.errors }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <div class="form-check">
+            <label class="radio-inline"> <input value="Male" type="radio" name="gender" {% if form.gender.value == "Male" %}checked="checked"{% endif %}> Male &nbsp; &nbsp;</label>
+            <label class="radio-inline"> <input value="Female" type="radio" name="gender" {% if 'Female' == form.gender.value %}checked="checked"{% endif %}> Female</label>
+          </div>
+          {{ form.gender.errors }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="role">Role</label>
+          {{ form.role }}
+          {{ form.role.errors }}
+        </div>
+      </div>
+       <div class="col-md-6">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" value="{% if form.password.value != None %}{{ form.password.value }}{% endif %}" name="password" class="form-control" id="password" placeholder="Enter Password">
+          {{ form.password.errors }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.card-body -->
+<div class="card-footer">
+  <a href="{% url page_url %}?type={{user_type}}" class="btn btn-secondary">Cancel</a>
+  <button type="submit" class="btn btn-primary float-right">Submit</button>
+</div>
