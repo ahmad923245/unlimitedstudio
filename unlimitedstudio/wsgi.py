@@ -23,3 +23,5 @@ application = socketio.WSGIApp(sio, application)
 import eventlet
 import eventlet.wsgi
 eventlet.wsgi.server(eventlet.listen(('', 8083)), application)
+
+app = application
