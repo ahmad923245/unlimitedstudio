@@ -187,12 +187,11 @@ EMAIL_USE_TLS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-import os
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 MEDIA_URL = '/media/'
-# STATIC_ROOT = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles_build','static')
+STATIC_ROOT = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = 'login'
 AUTH_USER_MODEL = 'user.User'
