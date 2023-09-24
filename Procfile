@@ -1,1 +1,1 @@
-web gunicorn unlimitedstudio:application --log-file -
+web: gunicorn unlimitedstudio.wsgi -log-file -
