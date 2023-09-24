@@ -23,9 +23,9 @@ __pycache__
 */*/.pyc
 
 
-*/settings.py
-*/*/settings.py
-settings.py
+# */settings.py
+# */*/settings.py
+# settings.py
 
 
 
