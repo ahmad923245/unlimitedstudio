@@ -14,7 +14,6 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'unlimitedstudio.settings')
 
 application = get_wsgi_application()
-app = application
 
 from booking.socket import sio
 import socketio
